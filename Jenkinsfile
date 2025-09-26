@@ -31,6 +31,7 @@ pipeline {
                 sh '''
                     echo "Test Stage"
                     ls build | grep index.html
+                    npm test
                 '''
             }
         }
