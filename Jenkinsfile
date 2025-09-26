@@ -41,12 +41,16 @@ pipeline {
                 docker {
                     image 'mcr.microsoft.com/playwright:v1.55.0-noble'
                     reuseNode true
+                    // Don't use args '-u root:root' to fix permission issues =)
                 }
             }
             steps {
                 sh '''
-                    npm install -g serve
-                    serve -s build
+                    # npm install -g serve 
+                    # install npm locally instead of globally
+                    npm install serve
+                    node_modules/.bin/serve -s build &
+                    sleep 10
                     npx playwright test
                 '''
             }
